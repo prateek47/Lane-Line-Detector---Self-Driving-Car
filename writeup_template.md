@@ -1,4 +1,4 @@
-**Finding Lane Lines on the Road** 
+## **Finding Lane Lines on the Road** 
 
 ### Reflection
 
@@ -8,30 +8,18 @@
 * Apply gaussian Noise kernel for smoothing between different layers
 * Keep only the region of interest, which is defined by the polygon I had created(in the center)
 * Run the Hough line detector
-* 
+ * Hough line is used to detect straight lines, we filer these lines by slope and endpoint location, and separate them into right/left lane line segments. Then run linear regression to create right/left lane line equations. From these equations, draw right/left lane lines on the image: draw_lines().
+ * Tuned the parameters for the Canny Edge Detector and Hough Line Detector specifically to fit this problem. I used the parameters in the quiz solution to start with and then improved on it.
+* Lay out the Hough lines images on the color images and then draw lines on the edge images.
 
-Keep only yellow and white pixels, black out all other pixels: filter_colors()
+#### Potential shortcomings:
 
-Filter Hough lines by slope and endpoint location, and separate them into candidate right/left lane line segments. Then run linear regression on candidate right/left lane line segment endpoints, to create right/left lane line equations. From these equations, draw right/left lane lines on the image: draw_lines()
-I tuned the parameters for the Canny Edge Detector and Hough Line Detector specifically to fit this problem. As a starting point, I used the parameters presented in the quiz solution of the Hough Transform lecture.
-Potential shortcomings
-The algorithm I created is likely overfitted to the data available in this project. For example, the algorithm may fail during night time. Or, it may fail in bad weather, such as rain or snow. Even during sunny days, if the road curves more sharply, my algorithm may also fail, because I am trying to extrapolate straight lane lines.
-Possible improvements
-To start, I would test my algorithm on highway roads, but with different weather conditions, such as night time, rain, snow, etc. I would also test my algorithm when there is heavy traffic on the highway. Then, I would see how/if the algorithm fails in those situations. From there, I can figure out ways to improve the algorithm to make it more robust.
-Further, I would test my algorithm on different road types, i.e. roads that are not highways. Examples would be country roads or urban roads.
+* The algorithm is likely to overfit the data, as the data consist on only clear images, but the algorithm may fail during night time or bad weather, such as rain or snow.
+* Even with sharper turn, the algorithm might not be able to detect the entire lane to the entire stretch of the road the camera can see because the algorithm is trying to extrapolate straight lane lines.
 
+#### Possible improvements: 
 
+* Firstly, I would add images with different weather situations and day times, such as evening, night etc
+* Secondly, the data should consist of more cars, that might and might not be cutting the lanes, which would help us figure out weather other objects in the picture effect detection and extrapolation and make it more robust.
+* Test the algorithm, on different road types, such as highways, residential roads, etc.
 
-###2. Identify potential shortcomings with your current pipeline
-
-
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
-
-
-###3. Suggest possible improvements to your pipeline
-
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
